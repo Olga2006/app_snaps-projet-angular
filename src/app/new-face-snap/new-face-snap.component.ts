@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { FaceSnap } from '../models/face-snap.model';
 import { FaceSnapsService } from '../services/face-snaps.service';
 import { Router } from '@angular/router';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-face-snap',
@@ -47,9 +48,16 @@ export class NewFaceSnapComponent implements OnInit {
   /*   onSubmitForm() {
       console.log(this.snapForm.value);
     } */
-  onSubmitForm() {
+/*   onSubmitForm() {
     this.faceSnapsService.addFaceSnap(this.snapForm.value);
     this.router.navigateByUrl('/facesnaps');
-  }
+  } */
+  onSubmitForm() {
+    console.log('this.snapForm.value');
+    console.log(this.snapForm.value);
+    this.faceSnapsService.addFaceSnap(this.snapForm.value).pipe(
+        tap(() => this.router.navigateByUrl('/facesnaps'))
+    ).subscribe();
+}
 
 }
